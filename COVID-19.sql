@@ -1,14 +1,14 @@
 CREATE DATABASE if NOT EXISTS dbron;
-
 USE dbron;
+
+DROP TABLE if EXISTS diagnosis;
+DROP TABLE if EXISTS suspension;
 DROP TABLE if EXISTS doctors;
 DROP TABLE if EXISTS medical_institution;
-DROP TABLE if EXISTS user_from;
-DROP TABLE if EXISTS user_pass;
 DROP TABLE if EXISTS check_health;
 DROP TABLE if EXISTS activity;
-DROP TABLE if EXISTS suspension;
-DROP TABLE if EXISTS diagnosis;
+DROP TABLE if EXISTS user_from;
+DROP TABLE if EXISTS user_pass;
 DROP TABLE if EXISTS user;
 
 CREATE TABLE user(
