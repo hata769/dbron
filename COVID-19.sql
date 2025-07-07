@@ -19,6 +19,7 @@ CREATE TABLE user(
 	f_name VARCHAR(30) NOT NULL,
 	l_name_kana VARCHAR(30) NOT NULL,
 	f_name_kana VARCHAR(30) NOT NULL,
+	gender BOOL NOT NULL,
 	birthday DATE NOT NULL,
 	lastupdate DATETIME,
 	PRIMARY KEY(userID)
