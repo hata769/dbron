@@ -20,7 +20,7 @@ CREATE TABLE user(
 	l_name_kana VARCHAR(30) NOT NULL,
 	f_name_kana VARCHAR(30) NOT NULL,
 	birthday DATE NOT NULL,
-	lustupdate DATETIME,
+	lastupdate DATETIME,
 	PRIMARY KEY(userID)
 )
 ;
