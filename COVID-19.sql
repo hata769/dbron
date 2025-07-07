@@ -50,7 +50,7 @@ create TABLE user_pass(
 	userID INT NOT NULL,
 	permission INT NOT NULL,
 	user_name VARCHAR(50) NOT NULL,
-	password VARCHAR(20) NOT NULL,
+	password VARCHAR(100) NOT NULL,
 	delflag BOOL DEFAULT FALSE,
 	lastupdate DATETIME,
 	PRIMARY KEY (user_passID),
