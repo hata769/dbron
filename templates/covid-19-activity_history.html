@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+</head>
+<body>
+    <h1>{{ title }}</h1>
+    <table border="1">
+        <tr>
+            <th>日付</th><th>出発時刻</th><th>帰宅時刻</th><th>場所</th><th>移動手段</th>
+            <th>出発地</th><th>到着地</th><th>同行者</th><th>人数と間柄</th><th>特記事項</th>
+        </tr>
+        {% for r in records %}
+        <tr>
+            <td>{{ r.went_date }}</td>
+            <td>{{ r.went_time }}</td>
+            <td>{{ r.return_time }}</td>
+            <td>{{ r.location }}</td>
+            <td>{{ r.move_method }}</td>
+            <td>{{ r.departure }}</td>
+            <td>{{ r.arrival }}</td>
+            <td>{{ "有" if r.comp_NY else "無" }}</td>
+            <td>{{ r.comp_num or "" }}</td>
+            <td>{{ r.sp_mention }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <br>
+    <a href="{{ url_for('top') }}">トップに戻る</a>
+</body>
+</html>

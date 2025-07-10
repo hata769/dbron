@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+    <meta http-equiv="refresh" content="5; url={{ url_for('activity1') }}">
+    <style>
+        body {
+            font-family: sans-serif;
+            background-color: #f8f9fa;
+            display: flex;
+            height: 100vh;
+            justify-content: center;
+            align-items: center;
+        }
+        .message-box {
+            background: #fff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        h1 {
+            color: #007bff;
+        }
+        p {
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="message-box">
+        <h1>行動記録を送信しました</h1>
+        <p>5秒後に続けて入力できます。</p>
+        <p><a href="{{ url_for('activity1') }}">今すぐ入力を続ける</a></p>
+    </div>
+</body>
+</html>

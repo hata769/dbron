@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+</head>
+<body>
+    <h1>{{ title }}</h1>
+    <table border="1">
+        <tr>
+            <th>日付</th><th>時間帯</th><th>体温</th>
+            <th>関節痛</th><th>だるさ</th><th>頭痛</th><th>咽頭痛</th>
+            <th>息苦しさ</th><th>咳</th><th>嘔吐</th><th>下痢</th>
+            <th>味覚障害</th><th>嗅覚障害</th>
+        </tr>
+        {% for r in records %}
+        <tr>
+            <td>{{ r.input_date }}</td>
+            <td>{{ "午前" if r.am_pm == 0 else "午後" }}</td>
+            <td>{{ r.body_temp }}</td>
+            <td>{{ "○" if r.pain else "" }}</td>
+            <td>{{ "○" if r.washedout_feeling else "" }}</td>
+            <td>{{ "○" if r.headache else "" }}</td>
+            <td>{{ "○" if r.sore_throat else "" }}</td>
+            <td>{{ "○" if r.breathless else "" }}</td>
+            <td>{{ "○" if r.cough else "" }}</td>
+            <td>{{ "○" if r.vomiting else "" }}</td>
+            <td>{{ "○" if r.diarrhea else "" }}</td>
+            <td>{{ "○" if r.taste_disorder else "" }}</td>
+            <td>{{ "○" if r.olfactory_disorder else "" }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <br>
+    <a href="{{ url_for('top') }}">トップに戻る</a>
+</body>
+</html>

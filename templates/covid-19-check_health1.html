@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>健康観察フォーム</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #eef1f5;
+            padding: 30px;
+        }
+        .container {
+            max-width: 600px;
+            background: #fff;
+            margin: 0 auto;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        label {
+            font-weight: bold;
+        }
+        input[type="number"],
+        input[type="date"],
+        select {
+            width: 100%;
+            padding: 8px;
+            margin: 8px 0 16px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .checkbox-group {
+            margin-bottom: 16px;
+        }
+        .checkbox-group label {
+            font-weight: normal;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>{{title}}</h2>
+        <form method="post" action="{{ url_for('check_health2') }}">
+            <label for="input_date">日付</label>
+            <input type="date" id="input_date" name="input_date" required>
+
+            <label for="am_pm">時間帯</label>
+            <select id="am_pm" name="am_pm" required>
+                <option value="0">午前</option>
+                <option value="1">午後</option>
+            </select>
+
+            <label for="body_temp">体温(℃)</label>
+            <input type="number" step="0.1" min="34" max="42" id="body_temp" name="body_temp" required>
+
+            <div class="checkbox-group">
+                <label><input type="checkbox" name="pain"> 関節・筋肉痛</label><br>
+                <label><input type="checkbox" name="washedout_feeling"> だるさ</label><br>
+                <label><input type="checkbox" name="headache"> 頭痛</label><br>
+                <label><input type="checkbox" name="sore_throat"> 咽頭痛</label><br>
+                <label><input type="checkbox" name="breathless"> 息苦しさ</label><br>
+                <label><input type="checkbox" name="cough"> 咳・くしゃみ</label><br>
+                <label><input type="checkbox" name="vomiting"> 吐気・嘔吐</label><br>
+                <label><input type="checkbox" name="diarrhea"> 腹痛・下痢</label><br>
+                <label><input type="checkbox" name="taste_disorder"> 味覚障害</label><br>
+                <label><input type="checkbox" name="olfactory_disorder"> 嗅覚障害</label>
+            </div>
+
+            <button type="submit">送信</button>
+        </form>
+    </div>
+</body>
+</html>

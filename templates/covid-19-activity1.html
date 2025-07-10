@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            background-color: #f1f3f5;
+            padding: 20px;
+        }
+        .container {
+            max-width: 700px;
+            background: white;
+            margin: auto;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 8px;
+            margin: 8px 0 16px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        label {
+            font-weight: bold;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>{{ title }}</h2>
+        <form method="post" action="{{ url_for('activity2') }}">
+            <label for="went_date">日付</label>
+            <input type="date" name="went_date" required>
+
+            <label for="went_time">出発時間</label>
+            <input type="time" name="went_time" required>
+
+            <label for="return_time">帰宅時間</label>
+            <input type="time" name="return_time" required>
+
+            <label for="location">場所（行先）</label>
+            <input type="text" name="location" required>
+
+            <label for="move_method">移動手段</label>
+            <input type="text" name="move_method" required>
+
+            <label for="departure">出発地</label>
+            <input type="text" name="departure" required>
+
+            <label for="arrival">到着地</label>
+            <input type="text" name="arrival" required>
+
+            <label><input type="checkbox" name="comp_NY"> 同行者あり</label>
+
+            <label for="comp_num">同行者情報（人数・関係など）</label>
+            <input type="text" name="comp_num">
+
+            <label for="sp_mention">特記事項（マスクの使用など）</label>
+            <textarea name="sp_mention" rows="3"></textarea>
+
+            <button type="submit">記録を送信</button>
+        </form>
+
+        <p style="text-align:center; margin-top:20px;">
+            <a href="{{ url_for('top') }}">トップページへ戻る</a>
+        </p>
+    </div>
+</body>
+</html>

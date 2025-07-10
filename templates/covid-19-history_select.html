@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            background-color: #f8f9fa;
+            text-align: center;
+            padding-top: 100px;
+        }
+        form {
+            display: inline-block;
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 8px rgba(0,0,0,0.1);
+        }
+        h2 {
+            margin-bottom: 20px;
+        }
+        button {
+            width: 200px;
+            padding: 10px;
+            font-size: 16px;
+            margin: 10px;
+            border: none;
+            border-radius: 6px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-box">
+        <h2>{{ title }}</h2>
+        <form method="post" action="{{ url_for('history_select') }}">
+            <div class="option">
+                <label><input type="radio" name="history_type" value="health" required> 健康観察記録</label>
+            </div>
+            <div class="option">
+                <label><input type="radio" name="history_type" value="activity" required> 行動記録</label>
+            </div>
+            <button type="submit">履歴を表示</button>
+        </form>
+    </div>
+</body>
+</html>
