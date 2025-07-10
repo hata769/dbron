@@ -1,18 +1,46 @@
 CREATE DATABASE if NOT EXISTS dbron;
 USE dbron;
 
-DROP TABLE if EXISTS diagnosis;
+DROP TABLE if EXISTS answertbl;
 DROP TABLE if EXISTS suspension;
-DROP TABLE if EXISTS doctors;
-DROP TABLE if EXISTS medical_institution;
+DROP TABLE if EXISTS check_health;
+DROP TABLE if EXISTS suspension;
 DROP TABLE if EXISTS check_health;
 DROP TABLE if EXISTS activity;
 DROP TABLE if EXISTS user_from;
 DROP TABLE if EXISTS user_pass;
 DROP TABLE if EXISTS user;
+DROP TABLE if EXISTS department;
+DROP TABLE if EXISTS school;
+
+CREATE TABLE school (
+    schoolID INT NOT NULL AUTO_INCREMENT,
+    school_name VARCHAR(100) NOT NULL,
+    post_num VARCHAR(8) NOT NULL,
+    prefecture VARCHAR(10),
+    city VARCHAR(30),
+    area VARCHAR(50),
+    lastupdate DATETIME,
+    PRIMARY KEY (schoolID)
+);
+
+CREATE TABLE department (
+    officeID INT NOT NULL AUTO_INCREMENT,
+    schoolID INT NOT NULL,
+    department_name VARCHAR(50) NOT NULL,
+    phone VARCHAR(11) NOT NULL,
+    delflag BOOL DEFAULT FALSE,
+    lastupdate DATETIME,
+    PRIMARY KEY (officeID),
+    FOREIGN KEY (schoolID)
+        REFERENCES school(schoolID)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);
 
 CREATE TABLE user(
 	userID INT NOT NULL AUTO_INCREMENT,
+	schoolID INT NOT NULL,
 	affiliation VARCHAR(50) NOT NULL,
 	user_code VARCHAR(20) NOT NULL,
 	l_name VARCHAR(30) NOT NULL,
@@ -21,8 +49,13 @@ CREATE TABLE user(
 	f_name_kana VARCHAR(30) NOT NULL,
 	gender BOOL NOT NULL,
 	birthday DATE NOT NULL,
+	delflag BOOL DEFAULT FALSE,
 	lastupdate DATETIME,
-	PRIMARY KEY(userID)
+	PRIMARY KEY(userID),
+	FOREIGN KEY (schoolID)
+        REFERENCES school(schoolID)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
 )
 ;
 
@@ -47,7 +80,7 @@ CREATE TABLE user_from(
 
 create TABLE user_pass(
 	user_passID INT NOT NULL AUTO_INCREMENT,
-	userID INT NOT NULL,
+	userID INT NOT NULL unique,
 	permission INT NOT NULL,
 	user_name VARCHAR(50) NOT NULL,
 	password VARCHAR(100) NOT NULL,
@@ -87,7 +120,7 @@ CREATE TABLE check_health(
 ;
 
 CREATE TABLE activity(
-	check_activityID INT NOT NULL AUTO_INCREMENT,
+	activityID INT NOT NULL AUTO_INCREMENT,
 	userID INT NOT NULL,
 	went_date DATE NOT NULL,
 	went_time TIME NOT NULL,
@@ -101,7 +134,7 @@ CREATE TABLE activity(
 	sp_mention VARCHAR(100),
 	delflag BOOL DEFAULT FALSE,
 	lastupdate DATETIME,
-	PRIMARY KEY(check_activityID),
+	PRIMARY KEY(activityID),
 	FOREIGN KEY(userID)
 		REFERENCES user(userID)
 		ON DELETE CASCADE
@@ -109,80 +142,46 @@ CREATE TABLE activity(
 )
 ;
 
-CREATE TABLE suspension(
-	suspensionID INT NOT NULL AUTO_INCREMENT,
-	userID INT NOT NULL,
-	susp_school BOOL DEFAULT FALSE,
-	start_date DATE NOT NULL,
-	end_date DATE NOT NULL,
-	reason VARCHAR(200),
-	delflag BOOL DEFAULT FALSE,
-	lastupdate DATETIME,
-	PRIMARY KEY(suspensionID),
-	FOREIGN KEY(userID)
-		REFERENCES user(userID)
-		ON DELETE CASCADE
-		ON UPDATE CASCADE
-)
-;
+CREATE TABLE suspension (
+    suspensionID INT NOT NULL AUTO_INCREMENT,
+    userID INT NOT NULL,
+    susp_school BOOL DEFAULT FALSE,
+    start_date DATE NOT NULL,
+    end_date DATE NOT NULL,
+    reason VARCHAR(200),
+    institution_name VARCHAR(50),
+    doctor_name VARCHAR(50),
+    status INT NOT NULL COMMENT '感染=0, 未感染=1, 濃厚接触=2',
+    mention VARCHAR(200),
+    delflag BOOL DEFAULT FALSE,
+    lastupdate DATETIME,
+    PRIMARY KEY (suspensionID),
+    FOREIGN KEY (userID)
+        REFERENCES user(userID)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);
 
-CREATE TABLE medical_institution(
-	medical_institutionID INT NOT NULL AUTO_INCREMENT,
-	institution_name VARCHAR(50) NOT NULL,
-	post_num VARCHAR(8) NOT NULL,
-	prefecture VARCHAR(10),
-	city VARCHAR(30),
-	area VARCHAR(50),
-	phone VARCHAR(11),
-	delflag BOOL DEFAULT FALSE,
-	lastupdate DATETIME,
-	PRIMARY KEY(medical_institutionID)
-)
-;
+CREATE TABLE answertbl (
+    answertblID INT NOT NULL AUTO_INCREMENT,
+    userID INT NOT NULL,
+    question VARCHAR(300),
+    answer VARCHAR(300),
+    delflag BOOL DEFAULT FALSE,
+    lastupdate DATETIME,
+    PRIMARY KEY (answertblID),
+    FOREIGN KEY (userID)
+        REFERENCES user(userID)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);
 
-CREATE TABLE doctors(
-	doctorsID INT NOT NULL AUTO_INCREMENT,
-	medical_institutionID INT NOT NULL,
-	doctor_l_name VARCHAR(30) NOT NULL,
-	doctor_f_name VARCHAR(30) NOT NULL,
-	doctor_l_name_kana VARCHAR(30) NOT NULL,
-	doctor_f_name_kana VARCHAR(30) NOT NULL,
-	delflag BOOL DEFAULT FALSE,
-	lastupdate DATETIME,
-	PRIMARY KEY(doctorsID),
-	FOREIGN KEY(medical_institutionID)
-		REFERENCES medical_institution(medical_institutionID)
-		ON DELETE CASCADE
-		ON UPDATE CASCADE
-)
-;
-
-CREATE TABLE diagnosis(
-	diagnosisID INT NOT NULL AUTO_INCREMENT,
-	suspensionID INT NOT NULL,
-	medical_institution VARCHAR(50) NOT NULL,
-	doctor VARCHAR(50) NOT NULL,
-	diag_date DATE NOT NULL,
-	close_contact BOOL DEFAULT FALSE,
-	test_results BOOL DEFAULT FALSE,
-	location VARCHAR(50),
-	mention VARCHAR(200),
-	delflag BOOL DEFAULT FALSE,
-	lastupdate DATETIME,
-	PRIMARY KEY(diagnosisID),
-	FOREIGN KEY(suspensionID)
-		REFERENCES suspension(suspensionID)
-		ON DELETE CASCADE
-		ON UPDATE CASCADE
-)
-;
-
+DESC school;
+DESC department;
 DESC user;
 DESC user_from;
 DESC user_pass;
 DESC check_health;
 DESC activity;
 DESC suspension;
-DESC medical_institution;
-DESC doctors;
-DESC diagnosis;
+DESC answertbl;
