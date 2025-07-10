@@ -28,7 +28,7 @@ CREATE TABLE department (
     officeID INT NOT NULL AUTO_INCREMENT,
     schoolID INT NOT NULL,
     department_name VARCHAR(50) NOT NULL,
-    phone VARCHAR(11) NOT NULL,
+    phone VARCHAR(12) NOT NULL,
     delflag BOOL DEFAULT FALSE,
     lastupdate DATETIME,
     PRIMARY KEY (officeID),
