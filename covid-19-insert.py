@@ -56,7 +56,7 @@ for fn in filename:
                 INSERT INTO user
                 (schoolID,affiliation,user_code,l_name,f_name,l_name_kana,f_name_kana,gender,birthday,lastupdate)
                 values
-                ({rowdata.schoolID},'{rowdata.affiliation}','{rowdata.user_code}','{rowdata.l_name}','{rowdata.f_name}','{rowdata.l_name_kana}','{rowdata.f_name_kana}',{rowdata.gender},'{rowdata.birthday}','{dt_now}')
+                ({rowdata.schoolID},'{rowdata.affiliation}','{rowdata.user_code}','{rowdata.l_name}','{rowdata.f_name}','{rowdata.l_name_kana}','{rowdata.f_name_kana}',{rowdata.gender},'{rowdata.birthday}','{rowdata.e_mail}','{dt_now}')
                 ;
             """
         elif fn == "./user_from.csv" :
